@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0f1a14">
+  <meta name="description" content="KOPINOVA — Dashboard monitoring IoT pengering kopi. Pantau suhu, kelembapan, berat, dan warna biji kopi secara real-time.">
+  <title>KOPINOVA | Dashboard Pengering Kopi IoT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <!-- ═══════ SIDEBAR ═══════ -->
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#top" aria-label="KOPINOVA dashboard">
+        <span class="brand-mark">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+        </span>
+        <span class="brand-text">
+          <b>KOPINOVA</b>
+          <small>SMART COFFEE DRYER</small>
+        </span>
+      </a>
+
+      <div class="nav-label">MENU</div>
+      <nav class="nav-list" aria-label="Menu utama">
+        <a class="nav-link active" href="#top" data-section="dashboard">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+          Dashboard
+        </a>
+        <a class="nav-link" href="#sensor-cards" data-section="sensor">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          Sensor Data
+        </a>
+        <a class="nav-link" href="#charts-section" data-section="charts">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          Grafik Real-time
+        </a>
+        <a class="nav-link" href="#process" data-section="process">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+          Kontrol & Batch
+        </a>
+      </nav>
+
+      <section class="appearance-panel" aria-label="Pengaturan tampilan">
+        <div class="appearance-heading">
+          <span class="appearance-title">Tampilan</span>
+          <button class="theme-mode-button" id="themeModeToggle" type="button" aria-label="Ubah mode tampilan">
+            <span id="themeModeIcon" aria-hidden="true">☼</span>
+            <span id="themeModeLabel">Terang</span>
+          </button>
+        </div>
+        <span class="appearance-caption">Warna aksen</span>
+        <div class="accent-options" role="group" aria-label="Pilih warna aksen">
+          <button class="accent-swatch" type="button" data-accent="#d4a853" aria-label="Emas" title="Emas" style="--swatch:#d4a853"></button>
+          <button class="accent-swatch" type="button" data-accent="#e85b63" aria-label="Merah" title="Merah" style="--swatch:#e85b63"></button>
+          <button class="accent-swatch" type="button" data-accent="#4e91e8" aria-label="Biru" title="Biru" style="--swatch:#4e91e8"></button>
+          <button class="accent-swatch" type="button" data-accent="#9b6de8" aria-label="Ungu" title="Ungu" style="--swatch:#9b6de8"></button>
+          <label class="custom-accent" title="Pilih warna sendiri" aria-label="Pilih warna sendiri">
+            <span aria-hidden="true">+</span>
+            <input id="customAccent" type="color" value="#d4a853" aria-label="Warna pilihan sendiri">
+          </label>
+        </div>
+      </section>
+      <div class="sidebar-bottom">
+        <div class="sidebar-status">
+          <span class="pulse-dot" id="sidebarDot"></span>
+          <span id="sideConnection">Belum terhubung</span>
+        </div>
+        <small>ESP32 · KOPINOVA v1.0</small>
+      </div>
+    </aside>
+
+    <!-- ═══════ OVERLAY (mobile) ═══════ -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- ═══════ MAIN CONTENT ═══════ -->
+    <main class="main-content" id="top">
+      <!-- TOPBAR -->
+      <header class="topbar">
+        <button class="menu-toggle" id="menuToggle" aria-label="Buka menu">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+        <div class="topbar-info">
+          <span class="eyebrow">MALANG RAYA · PASCAPANEN</span>
+          <h1>Dashboard Pengering Kopi</h1>
+        </div>
+        <div class="topbar-status">
+          <span class="status-indicator" id="connectionDot">
+            <span class="status-ring"></span>
+          </span>
+          <span id="connectionLabel">Offline</span>
+          <span class="badge" id="demoLabel">Menunggu ESP32</span>
+        </div>
+      </header>
+      <!-- SENSOR CARDS -->
+      <section class="section-heading" id="sensor-cards">
+        <div>
+          <span class="eyebrow">PEMANTAUAN LANGSUNG</span>
+          <h2>Kondisi Pengering</h2>
+        </div>
+        <span class="updated" id="lastUpdated">Belum ada data</span>
+      </section>
+
+      <section class="sensor-grid">
+        <article class="metric-card" data-type="temp">
+          <div class="metric-top">
+            <span class="metric-icon">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 14.76V3.5a2.5 2.5 0 00-5 0v11.26a4.5 4.5 0 105 0z"/></svg>
+            </span>
+            <span class="chip">DHT22</span>
+          </div>
+          <p class="metric-label">Suhu Ruang</p>
+          <div class="metric-value"><span id="temperature">—</span><small>°C</small></div>
+          <div class="metric-bar"><div class="metric-bar-fill" id="tempBar" style="width:0%"></div></div>
+          <div class="metric-foot" id="temperatureNote">Menunggu pembacaan</div>
+        </article>
+
+        <article class="metric-card" data-type="humidity">
+          <div class="metric-top">
+            <span class="metric-icon">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z"/></svg>
+            </span>
+            <span class="chip">DHT22</span>
+          </div>
+          <p class="metric-label">Kelembapan Udara</p>
+          <div class="metric-value"><span id="humidity">—</span><small>% RH</small></div>
+          <div class="metric-bar"><div class="metric-bar-fill" id="humBar" style="width:0%"></div></div>
+          <div class="metric-foot" id="humidityNote">Menunggu pembacaan</div>
+        </article>
+
+        <article class="metric-card" data-type="light">
+          <div class="metric-top">
+            <span class="metric-icon">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+            </span>
+            <span class="chip">LDR</span>
+          </div>
+          <p class="metric-label">Intensitas Cahaya</p>
+          <div class="metric-value"><span id="lightValue">—</span><small>ADC</small></div>
+          <div class="metric-bar"><div class="metric-bar-fill" id="lightBar" style="width:0%"></div></div>
+          <div class="metric-foot" id="lightNote">Menunggu pembacaan</div>
+        </article>
+
+        <article class="metric-card" data-type="weight">
+          <div class="metric-top">
+            <span class="metric-icon">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+            </span>
+            <span class="chip">LOAD CELL</span>
+          </div>
+          <p class="metric-label">Berat Kopi</p>
+          <div class="metric-value"><span id="weightValue">—</span><small>kg</small></div>
+          <div class="metric-bar"><div class="metric-bar-fill" id="weightBar" style="width:0%"></div></div>
+          <div class="metric-foot" id="weightNote">Perlu kalibrasi HX711</div>
+        </article>
+      </section>
+
+      <!-- REAL-TIME CHARTS -->
+      <section class="section-heading" id="charts-section">
+        <div>
+          <span class="eyebrow">ANALISIS DATA</span>
+          <h2>Grafik Real-time</h2>
+        </div>
+        <div class="chart-controls">
+          <button class="chip-btn active" data-chart="all">Semua</button>
+          <button class="chip-btn" data-chart="temp">Suhu</button>
+          <button class="chip-btn" data-chart="hum">Kelembapan</button>
+          <button class="chip-btn" data-chart="ldr">Cahaya</button>
+        </div>
+      </section>
+
+      <section class="charts-grid">
+        <article class="chart-card" id="chartTempCard">
+          <div class="chart-header">
+            <div><span class="chart-dot temp-dot"></span><span class="chart-title">Suhu (°C)</span></div>
+            <span class="chart-value" id="chartTempValue">—</span>
+          </div>
+          <canvas id="chartTemp" width="600" height="180"></canvas>
+        </article>
+        <article class="chart-card" id="chartHumCard">
+          <div class="chart-header">
+            <div><span class="chart-dot hum-dot"></span><span class="chart-title">Kelembapan (% RH)</span></div>
+            <span class="chart-value" id="chartHumValue">—</span>
+          </div>
+          <canvas id="chartHum" width="600" height="180"></canvas>
+        </article>
+        <article class="chart-card chart-wide" id="chartLdrCard">
+          <div class="chart-header">
+            <div><span class="chart-dot ldr-dot"></span><span class="chart-title">Intensitas Cahaya (ADC)</span></div>
+            <span class="chart-value" id="chartLdrValue">—</span>
+          </div>
+          <canvas id="chartLdr" width="1200" height="180"></canvas>
+        </article>
+      </section>
+
+      <!-- BATCH & ACTUATOR PANELS -->
+      <section class="content-grid" id="process">
+        <article class="panel batch-panel">
+          <div class="panel-heading">
+            <div>
+              <span class="eyebrow">CATATAN BATCH</span>
+              <h2>Perubahan Berat</h2>
+            </div>
+            <span class="icon-bubble">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10,9 9,9 8,9"/></svg>
+            </span>
+          </div>
+          <p class="panel-description">Simpan berat awal dan berat akhir untuk melihat perubahan massa. Ini bukan pengukuran kadar air langsung.</p>
+          <div class="batch-values">
+            <div class="batch-item">
+              <small>Berat awal</small>
+              <b id="startWeight">—</b>
+              <span>kg</span>
+            </div>
+            <div class="batch-arrow">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+            </div>
+            <div class="batch-item">
+              <small>Berat akhir</small>
+              <b id="endWeight">—</b>
+              <span>kg</span>
+            </div>
+          </div>
+          <div class="loss-row"><span>Perubahan berat</span><b id="weightLoss">—</b></div>
+          <div class="button-row">
+            <button class="btn btn-outline" id="startBatch" disabled>Simpan berat awal</button>
+            <button class="btn btn-primary" id="finishBatch" disabled>Simpan berat akhir</button>
+          </div>
+          <p class="inline-message" id="batchMessage" aria-live="polite">Hubungkan perangkat dan kalibrasi load cell terlebih dahulu.</p>
+        </article>
+
+        <article class="panel status-panel">
+          <div class="panel-heading">
+            <div>
+              <span class="eyebrow">STATUS UNIT</span>
+              <h2>Aktuator</h2>
+            </div>
+            <span class="icon-bubble">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+            </span>
+          </div>
+
+          <div class="actuator-row">
+            <div class="actuator-icon heater-icon">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2c0 4-4 6-4 10a4 4 0 008 0c0-4-4-6-4-10z"/></svg>
+            </div>
+            <div class="actuator-copy">
+              <b>Heater</b>
+              <small id="heaterDetail">Menunggu status ESP32</small>
+            </div>
+            <span class="state-pill" id="heaterState">—</span>
+          </div>
+
+          <div class="actuator-row">
+            <div class="actuator-icon conveyor-icon-box">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23,4 23,10 17,10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>
+            </div>
+            <div class="actuator-copy">
+              <b>Konveyor</b>
+              <small id="conveyorDetail">Kontrol manual</small>
+            </div>
+            <button class="toggle" id="conveyorToggle" type="button" role="switch" aria-checked="false" disabled>
+              <span class="toggle-thumb"></span>
+            </button>
+          </div>
+
+          <div class="safety-note">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <div>
+              <b>Catatan keselamatan</b>
+              <span>Heater hanya dikendalikan otomatis oleh ESP32. Gunakan relay sesuai beban dan pasang pemutus panas independen.</span>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- COLOR SENSOR & HISTORY -->
+      <section class="content-grid lower-grid">
+        <article class="panel color-panel">
+          <div class="panel-heading">
+            <div>
+              <span class="eyebrow">SENSOR WARNA TCS3200</span>
+              <h2>Pembacaan Warna Biji</h2>
+            </div>
+            <span class="icon-bubble color-bubble">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="13.5" cy="6.5" r="4.5"/><circle cx="17.5" cy="17.5" r="4.5"/><circle cx="6.5" cy="17.5" r="4.5"/></svg>
+            </span>
+          </div>
+          <div class="color-readings">
+            <div class="color-preview" id="colorPreview"></div>
+            <div class="rgb-list">
+              <div class="rgb-item"><span class="rgb-dot r"></span><span class="rgb-label">R</span><b id="redValue">—</b></div>
+              <div class="rgb-item"><span class="rgb-dot g"></span><span class="rgb-label">G</span><b id="greenValue">—</b></div>
+              <div class="rgb-item"><span class="rgb-dot b"></span><span class="rgb-label">B</span><b id="blueValue">—</b></div>
+            </div>
+          </div>
+          <div class="calibration-message" id="colorStatus">Data warna membantu pemantauan. Kalibrasi diperlukan sebelum membuat estimasi kesiapan.</div>
+        </article>
+
+        <article class="panel history-panel">
+          <div class="panel-heading">
+            <div>
+              <span class="eyebrow">RIWAYAT SAMPEL</span>
+              <h2>Pembacaan Terbaru</h2>
+            </div>
+          </div>
+          <div class="history-table-head">
+            <span>Waktu</span><span>Suhu</span><span>Hum</span><span>LDR</span>
+          </div>
+          <div class="reading-list" id="readingHistory">
+            <div class="empty-state">
+              <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              <p>Sambungkan ESP32 untuk melihat riwayat sampel.</p>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <footer>
+        <div class="footer-brand">KOPINOVA</div>
+        <p>© 2026 KOPINOVA · Dashboard prototipe · Data berasal dari sensor perangkat saat terhubung.</p>
+      </footer>
+    </main>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
+
+
